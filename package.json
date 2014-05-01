@@ -18,6 +18,7 @@
     "npm": "1.2.x"
   },
   "scripts": {
-    "start": "web.js"
-  }
+    "start": "node keystone.js"
+  },
+  "main": "keystone.js"
 }
