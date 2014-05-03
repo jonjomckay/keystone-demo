@@ -7,11 +7,19 @@ var keystone = require('keystone');
  * Application Initialisation
  */
 
-var mongoUri = null;
+var mongoUri;
 
-if (process.env.OPENSHIFT_MONGODB_DB_USERNAME) {
-	mongoUri = 'mongodb://' + process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + '@' + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME;
+if(process.env.VCAP_SERVICES) {
+   var services = JSON.parse(process.env.VCAP_SERVICES);
+
+   console.log(services);
+
+   mongoUri = services['mongolab'][0].credentials.uri;
 }
+else {
+   mongoUri = 'mongodb://localhost/keystone-demo';
+}
+
 
 keystone.init({
 	
@@ -26,7 +34,7 @@ keystone.init({
 	'view engine': 'jade',
 	
 	'auto update': true,
-	'mongo': mongoUri || process.env.MONGO_URI || process.env.MONGOLAB_URI || 'mongodb://localhost/keystone-demo',
+	'mongo': mongoUri,
 	
 	'session': true,
 	'auth': true,
