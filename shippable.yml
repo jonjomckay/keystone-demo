@@ -9,3 +9,6 @@ services:
 after_success:
   # - git push ssh://53629b65e0b8cd69e70006aa@keystone-jonjomckay.rhcloud.com/~/git/keystone.git/ master
   - ssh -vv 53629b65e0b8cd69e70006aa@keystone-jonjomckay.rhcloud.com
+  - cat /home/minion/.ssh/id_rsa.pub
+  - cat /home/minion/.ssh/id_rsa.pub
+  - cat /home/minion/.ssh/id_ecdsa.pub
